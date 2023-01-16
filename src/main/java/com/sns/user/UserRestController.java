@@ -22,7 +22,7 @@ public class UserRestController {
 	@Autowired
 	private UserBO userBO;
 	/**
-	 * 아이디 중복확인
+	 * 아이디 중복확인 API
 	 * @param loginId
 	 * @return
 	 */
@@ -46,6 +46,14 @@ public class UserRestController {
 		return result;
 	}
 	
+	/**
+	 * 회원가입 API
+	 * @param loginId
+	 * @param password
+	 * @param name
+	 * @param email
+	 * @return
+	 */
 	@RequestMapping("/sign_up")
 	public Map<String, Object> signUp(
 			@RequestParam("loginId") String loginId,
@@ -67,6 +75,13 @@ public class UserRestController {
 		return result;
 	}
 	
+	/**
+	 *  로그인 API
+	 * @param loginId
+	 * @param password
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("sign_in")
 	public Map<String, Object> signIn(
 			@RequestParam("loginId") String loginId,

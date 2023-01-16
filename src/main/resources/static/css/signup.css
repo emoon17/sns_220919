@@ -1,10 +1,10 @@
 @charset "UTF-8";
-#wrap {margin:auto; width: 400px; height:auto;}
+#wrap {margin:auto; width: 600px; height:auto;}
 header {height: 200px;}
 .logo{
     font-family: "Lobster", cursive;
-    font-size: 50px;
-    padding-top: 150px;
+    font-size: 80px;
+    padding-top: 100px;
     text-align: center;
 
 }
@@ -23,7 +23,7 @@ header {height: 200px;}
    
 }
 .line {
-  width: 370px;
+  width: 570px;
   margin-top: 50px;
   margin-bottom: 20px;
   border: 0.5px solid lightgray;
@@ -32,3 +32,11 @@ footer{height: 60px;}
 .password-forget{color:black;}
 .password-forget:hover {color:black; text-decoration:none !important}
 .sing-up:hover{text-decoration:none !important}
+.timeline-footer {font-size:13px; color:gray;}
+
+
+.contents-box {width:600px; }
+.card {width:566px;}
+#writeTextArea {height:100px; }
+
+
