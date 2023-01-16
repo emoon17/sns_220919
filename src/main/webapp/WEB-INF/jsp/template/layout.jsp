@@ -22,24 +22,10 @@
             </header>
             
             <section class="contents d-flex mt-5">
-                <div class="input-boxs justify-content-center col-12">
-                    <input type="text" id="address" name="address" placeholder="휴대폰 번호 또는 이메일주소" style="height:50px;" class="form-control pl-3 mt-3">
-                    <input type="text" id="name" name="name" placeholder="성명" style="height:50px;" class="form-control pl-3 mt-3">
-                    <input type="text" id="userId" name="userId" placeholder="아이디" style="height:50px;" class="form-control pl-3 mt-3">
-                    <input type="password" id="password" name="password" placeholder="비밀번호" style="height:50px;" class="form-control pl-3 mt-3">
-                    <div class="login_btn">
-                        <button type="button" class="btn btn-primary mt-5" style="width:370px; height:50px;">가입</button>
-                    </div>
-                    <div class="line"></div>
-                </div>
-                
+               <jsp:include page="../${viewName}.jsp"/>
             </section>
             <footer>
-                <div class="forget-box">
-                    <div class="text-center"><a href="#" class="password-forget">비밀번호를 잊으셨나요?</a></div>
-                    <div class="text-center">계정이 있으신가요? <a href="#" class="sing-up text-primary font-weight-bold"> 로그인</a></div>
-                    
-                </div>
+                <jsp:include page="../include/footer.jsp"/>
             </footer>
         </div>
 </body>
