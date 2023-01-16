@@ -7,15 +7,16 @@
 		<form id="signInForm" action="/user/sign_in" method="post">
 			<div class="input-boxs justify-content-center col-12">
 				<input type="text" id="loginId" name="loginId"
-					placeholder="아이디" style="height: 50px;"
+					placeholder="아이디" style="height: 50px; width:370px;"
 					class="form-control pl-3"> <input type="password"
 					id="password" name="password" placeholder="비밀번호"
-					style="height: 50px;" class="form-control pl-3 mt-3">
+					style="height: 50px; width:370px;" class="form-control pl-3 mt-3">
 				<div class="login_btn">
 					<button type="submit" class="btn btn-primary mt-5"
 						style="width: 370px; height: 50px;">로그인</button>
 				</div>
 				<div class="line"></div>
+			
 			</div>
 		</form>
 	</section>
