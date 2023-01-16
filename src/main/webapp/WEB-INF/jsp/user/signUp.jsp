@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div class="input-boxs justify-content-center col-12">
+<h2 class="sign-text">친구들의 사진과 동영상을 보려면 가입하세요.</h2>
 
 	<form id="signUpForm" method="post" action="/user/sign_up">
 		<input type="text" id="address" name="email"

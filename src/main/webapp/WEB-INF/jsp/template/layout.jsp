@@ -14,6 +14,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         
         <link rel="stylesheet" type="text/css" href="/static/css/signup.css">
+        
+        <!--폰트 시트-->
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="wrap">
@@ -25,7 +28,7 @@
                <jsp:include page="../${viewName}.jsp"/>
             </section>
             <footer>
-                <jsp:include page="../include/footer.jsp"/>
+                <jsp:include page="../${viewName}footer.jsp"/>
             </footer>
         </div>
 </body>

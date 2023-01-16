@@ -31,4 +31,21 @@
 			, NOW()
 		)
 	</insert>
+	<select id="selectUserByIdPassword" parameterType="map" resultType="com.sns.user.model.User">
+		SELECT 
+			`id`
+			,`loginId`
+			,`password`
+			,`name`
+			,`email`
+			,`profileImage`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND
+			`password` = #{password}
+	</select>
 </mapper>
