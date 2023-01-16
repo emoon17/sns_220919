@@ -46,13 +46,13 @@ public class UserRestController {
 			@RequestParam("loginId") String loginId,
 			@RequestParam("password") String password,
 			@RequestParam("name") String name,
-			@RequestParam("address") String address
+			@RequestParam("email") String email
 			){
 		//비밀번호 해싱하기
 		String HashedPassword = EncryptUtils.md5(password);
 		
 		//db insert하기
-		userBO.addUser(loginId, HashedPassword, name, address);
+		userBO.addUser(loginId, HashedPassword, name, email);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 1);

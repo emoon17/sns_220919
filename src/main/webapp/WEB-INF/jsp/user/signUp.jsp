@@ -88,7 +88,7 @@
 			//alert("dd");
 			
 			// 비어있는지 확인
-			let email = $('#email').val().trim();
+			let email = $('#email').val();
 			let name = $('#name').val().trim();
 			let loginId = $('#loginId').val().trim();
 			let password = $('#password').val().trim();
