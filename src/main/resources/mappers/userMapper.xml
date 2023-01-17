@@ -38,7 +38,7 @@
 			,`password`
 			,`name`
 			,`email`
-			,`profileImage`
+			,`profileImgUrl`
 			,`createdAt`
 			,`updatedAt`
 		FROM

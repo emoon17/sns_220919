@@ -24,7 +24,7 @@
                <jsp:include page="../include/header.jsp"/>
             </header>
             
-            <section class="contents d-flex mt-5">
+            <section class="contents d-flex mt-3">
                <jsp:include page="../${viewName}.jsp"/>
             </section>
             <footer>
