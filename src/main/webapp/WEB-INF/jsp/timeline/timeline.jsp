@@ -12,7 +12,7 @@
 				<div class="d-flex justify-content-between">
 					<div class="file-upload d-flex">
 						<%-- file 태그는 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 것처럼 이벤트를 줄 것이다. --%>
-						<input type="file" id="file" class="d-none" accept=".gif, .jpg, .png, .jpeg">
+						<input type="file" id="file" class="" accept=".gif, .jpg, .png, .jpeg">
 						<%-- 이미지에 마우스 올리면 마우스커서가 링크 커서가 변하도록 a 태그 사용 --%>
 						<a href="#" id="fileUploadBtn"><img width="35" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
 	
@@ -84,3 +84,69 @@
 	    	
    		</div>
    	</div>
+   	
+   	<script>
+   		$(document).ready(function() {
+   			// 게시 버튼을 눌렀을 때 (업로드 될 수 있도록)
+   			$('#writeBtn').on('click', function() {
+   				//alert("dd");
+   				
+   				//validation check
+   				let content = $('#writeTextArea').val();
+   				if (content == ''){
+   					alert("내용을 입력하여주세요.");
+   					return;
+   				}
+   				
+   				// 파일 저장
+   				let file = $('#file').val();
+   				//alert(file);
+   				
+   				if (file != '') {
+   					// 파일이 업로드 됐을 경우에만 확장자 체크
+   					let ext = file.split(".").pop().toLowerCase(); // toLowerCase: 다 소문자롤 바꿈
+   					
+   					// 배열 ext 에 [] 안에 있는 인덱스들이 있는지 확인 없으면 -1로 반환
+   					if($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
+   						alert("이미지 파일 형식에 맞지 않는 파일입니다.");
+   						$('#file').val(''); // file 비우기
+   						return;
+   					}
+   				}
+   				// ajax통신으로 파일 보내기 위한 순서
+   				let formData = new FormData();
+   				formData.append("content", content);
+   				formData.append("file", $('#file')[0].files[0]); // 여러 개 올릴 때는 배열로 올려야 함.
+   				
+   				//ajax 통신으로 forData에 있는 데이터 전송
+   				$.ajax({
+   					//request
+   					type:"post"
+   					, url:"/post/create"
+   					, data:formData // json이 아니라 form객체를 통으로 넣어야됌
+   					
+   					// 파일 업로드시 필요한 3가지 설정 - Requestbody에 json이 아니라 form객체가 담겨지는 설정
+   					// 자바스크립트에서 폼태그 만들기
+   					, enctype:"multipart/form-data"
+   					, processData:false
+   					, contentType:false
+   					
+   					//response
+   					, success:function(data) {
+   						if (data.code == 1) {
+   							// 성공
+   							alert("게시글 작성이 완료되었습니다.");
+   							location.href="/timeline/timeline_view";
+   						} else {
+   							//실패
+   							alert(data.errorMessage);
+   						}
+   					}
+   					, error:function(e){
+   						alert("메모저장에 실패하였습니다.")
+   					}
+   				});
+   				
+   			});
+   		});
+   	</script>
