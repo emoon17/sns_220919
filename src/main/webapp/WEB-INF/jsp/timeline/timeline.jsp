@@ -4,27 +4,29 @@
 
     <div class="d-flex justify-content-center">
     	<div class="contents-box">
-    		<%-- 글쓰기 영역 --%>
-			<div class="write-box border rounded m-3">
-				<textarea id="writeTextArea" placeholder="내용을 입력해주세요" class="w-100 border-0"></textarea>
-	
-				<%-- 이미지 업로드를 위한 아이콘과 업로드 버튼을 한 행에 멀리 떨어뜨리기 위한 div --%>
-				<div class="d-flex justify-content-between">
-					<div class="file-upload d-flex">
-						<%-- file 태그는 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 것처럼 이벤트를 줄 것이다. --%>
-						<input type="file" id="file" class="" accept=".gif, .jpg, .png, .jpeg">
-						<%-- 이미지에 마우스 올리면 마우스커서가 링크 커서가 변하도록 a 태그 사용 --%>
-						<a href="#" id="fileUploadBtn"><img width="35" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
-	
-						<%-- 업로드 된 임시 파일 이름 저장될 곳 --%>
-						<div id="fileName" class="ml-2">
+    		<%-- 글쓰기 영역 : 로그인 된 상태에서만 보여짐 --%>
+    		<c:if test="${not empty userId}">
+				<div class="write-box border rounded m-3">
+					<textarea id="writeTextArea" placeholder="내용을 입력해주세요" class="w-100 border-0"></textarea>
+		
+					<%-- 이미지 업로드를 위한 아이콘과 업로드 버튼을 한 행에 멀리 떨어뜨리기 위한 div --%>
+					<div class="d-flex justify-content-between">
+						<div class="file-upload d-flex">
+							<%-- file 태그는 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 것처럼 이벤트를 줄 것이다. --%>
+							<input type="file" id="file" class="d-none" accept=".gif, .jpg, .png, .jpeg">
+							<%-- 이미지에 마우스 올리면 마우스커서가 링크 커서가 변하도록 a 태그 사용 --%>
+							<a href="#" id="fileUploadBtn"><img width="35" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
+		
+							<%-- 업로드 된 임시 파일 이름 저장될 곳 --%>
+							<div id="fileName" class="ml-2">
+							</div>
 						</div>
+						<button id="writeBtn" class="btn btn-primary">게시</button>
+						
 					</div>
-					<button id="writeBtn" class="btn btn-primary">게시</button>
-					
-				</div>
-	    		
-	    	</div> <%--글쓰기 영역 끝 --%>
+		    		
+		    	</div> <%--글쓰기 영역 끝 --%>
+	    	</c:if>
 	    	
 	    	<%--타임라인 영역 --%>
 	    	<div class="d-flex justify-content-center ">
@@ -87,10 +89,37 @@
    	
    	<script>
    		$(document).ready(function() {
+   			// 파일이미지를 클릴 할 때 => 숨겨져 있는 file input을 동작시킴
+   			$('#fileUploadBtn').on('click', function(e){
+   				//alert("ㅇㅇ");
+   				// a태그를 누르면 스크롤이 맨 위로 올라감 -> 방지시킴
+   				e.preventDefault();
+   				$('#file').click(); // input file을 클릭한 것과 같은 효과
+   			});
+   			
+   			// 사용자가 이미지를 선택했을 때 유효성 확인 및 업로드 된 파일 이름 노출
+   			$('#file').on('change', function(e){
+   				//alert("Dd");
+   				let fileName = e.target.files[0].name; //e.target: this랑 같음 =>파일 0번째거의 파일명만 가져온다.
+   				//frozen-lake-7658478_960_720.jpg
+   			//	alert(fileName); 
+   				
+   				//확장자 유효성 확인
+   				let ext = fileName.split(".").pop().toLowerCase();
+   				if (ext != 'jpg' && ext != 'jepg' && ext != 'gif' && ext != 'png') {
+   					alert("이미지 파일의 형식에 맞지 않습니다.");
+   					$('#file').val('');// 파일 태그에 실제 파일 제거
+   					$('#fileName').text(''); // 파일 이름 비우기
+   					return;
+   				}
+   				// 유효성 검사에 통과하면 파일 이름을 노출시키기
+   				$('#fileName').text(fileName);
+   				
+   			});
+   			
    			// 게시 버튼을 눌렀을 때 (업로드 될 수 있도록)
    			$('#writeBtn').on('click', function() {
    				//alert("dd");
-   				
    				//validation check
    				let content = $('#writeTextArea').val();
    				if (content == ''){

@@ -29,6 +29,10 @@ header {height: 200px;}
   border: 0.5px solid lightgray;
 }
 footer{height: 60px;}
+.login-id{
+	margin-left:450px;
+	font-size:20px;
+}
 .password-forget{color:black;}
 .password-forget:hover {color:black; text-decoration:none !important}
 .sing-up:hover{text-decoration:none !important}
