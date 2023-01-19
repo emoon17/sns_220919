@@ -29,60 +29,63 @@
 	    	</c:if>
 	    	
 	    	<%--타임라인 영역 --%>
-	    	<div class="d-flex justify-content-center ">
-		    	<div class="timeline-box d-flex justify-content-center">
-		    		<%--카드 1 --%>
-		    		<div class="card border rounded mt-3 ">
-		    		
-		    			<%-- 글쓴이, 더보기(삭제) --%>
-						<div class="p-2 d-flex justify-content-between">
-							<span class="font-weight-bold">${loginId}</span>
-		
-							<%-- 더보기 --%>
-							<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${card.post.id}">
-								<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
-							</a>
-						</div>
-		    			
-		    			<%--카드 이미지 --%>
-		    			<div class="card-img">
-		    				<img src="https://cdn.pixabay.com/photo/2023/01/02/04/13/dog-7691238_960_720.jpg" class="w-100" alt="본문 이미지">
-						</div>
-						
-						<%-- 좋아요 --%>
-						<div class="card-like m-3">
-							<a href="#" class="like-btn">
-							<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
-							좋아요 10개
-							</a>
-						</div>
-						
-						<%-- 글 내용 --%>
-						<div class="card-comment-desc border-bottom">
-							<div class="ml-3 mb-1 font-weight-bold">댓글</div>
-						</div>
-						
-						<%-- 댓글 목록 --%>
-						<div class="card-comment-list m-2">
-							<div class="card-comment m-1 ">
-								<span class="font-weight-bold ">댓글쓴이: </span>
-								<span > 댓글 내용입니당</span>
+	    		<c:forEach var="post" items="${postList}">
+	    			<div class="d-flex justify-content-center ">
+			    		<div class="timeline-box d-flex justify-content-center">
+			    		<%--카드 1 --%>
+				    		<div class="card border rounded mt-3 ">
+				    		
+				    			<%-- 글쓴이, 더보기(삭제) --%>
+								<div class="p-2 d-flex justify-content-between">
+									<span class="font-weight-bold">${post.userId}</span>
+				
+									<%-- 더보기 --%>
+									<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${post.id}">
+										<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
+									</a>
+								</div>
+				    			
+				    			<%--카드 이미지 --%>
+				    			<div class="card-img">
+				    				<img src="${post.imagePath}" class="w-100" alt="본문 이미지">
+								</div>
 								
-								<%-- 댓글 삭제 버튼 --%>
-								<a href="#" class="commentDelBtn"><img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px"></a>
+								<%-- 좋아요 --%>
+								<div class="card-like m-3">
+									<a href="#" class="like-btn">
+									<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
+									좋아요 10개
+									</a>
+								</div>
+								
+								<%-- 글 내용 --%>
+								<div class="card-comment-desc border-bottom">
+									<div class="ml-3 mb-1 font-weight-bold">댓글</div>
+								</div>
+								
+								<%-- 댓글 목록 --%>
+								<div class="card-comment-list m-2">
+									<div class="card-comment m-1 ">
+										<span class="font-weight-bold ">댓글쓴이: </span>
+										<span > 댓글 내용입니당</span>
+										
+										<%-- 댓글 삭제 버튼 --%>
+										<a href="#" class="commentDelBtn"><img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px"></a>
+									</div>
+								</div>
+								<%-- 댓글 쓰기 : 로그인 된 상태만 가능--%>
+								<c:if test="${not empty userId}">
+									<div class="comment-write d-flex border-top mt-2">
+										<input type="text" class="form-control border-0 mr-2" placeholder="댓글 달기"/> 
+										<button type="button" class="comment-btn btn btn-light" data-post-id="${post.id}">게시</button>
+									</div>
+								</c:if>
 							</div>
-						</div>
-						
-						<%-- 댓글 쓰기 --%>
-						<div class="comment-write d-flex border-top mt-2">
-							<input type="text" class="form-control border-0 mr-2" placeholder="댓글 달기"/> 
-							<button type="button" class="comment-btn btn btn-light" data-post-id="${card.post.id}">게시</button>
-						</div>
-					</div>
-					<%--// 댓글 목록 끝 --%>
-		    	</div>
-	    	</div>
-	    </div>
+							<%--// 댓글 목록 끝 --%>
+			    		</div>
+	    			</div>
+		    	</c:forEach>
+	  	  </div>
 	    	
    		</div>
    	</div>
@@ -117,7 +120,7 @@
    				
    			});
    			
-   			// 게시 버튼을 눌렀을 때 (업로드 될 수 있도록)
+   			// 게시글 게시 버튼을 눌렀을 때 (업로드 될 수 있도록)
    			$('#writeBtn').on('click', function() {
    				//alert("dd");
    				//validation check
@@ -177,5 +180,46 @@
    				});
    				
    			});
+   			
+   			// 댓글 버튼 눌렀을 때
+   			$('.comment-btn').on('click', function(){
+   				//alert("dd");
+   				//validation
+   				// 글 번호, 댓글 내용 가져오기
+   				let postId = $(this).data('post-id');
+   				//alert(postId);
+   				
+   				 // 지금 클릭 된 게시버튼 근처에 있는 형제의 input을 가져온다. : siblings
+   				let comment = $(this).siblings('input').val();
+   				//alert(comment);
+   				if (comment == '') {
+   					alert("등록할 내용이 없습니다");
+   				}
+   				
+   				
+   				//ajax
+   				$.ajax({
+   					//request
+   					type:"get"
+   					, url:"/comment/create"
+   					, data:{"content":comment, "postId":postId}
+   				
+   					//response
+   					, success:function(data){
+   						if(data.code == 1) {
+   							alert("댓글을 등록하였습니다.");
+   							document.location.reload();
+   							
+   						} else {
+   							alert(data.errorMessage);
+   						}
+   					}
+   					, error:function(jqXHR, textStatus, ErrorThrown){
+   						var errorMsg = jqXHR.responseJSON.status;
+   						alert(errorMsg + ":" + textStatus);
+   					}
+   				});
+   			});
+   			
    		});
    	</script>
