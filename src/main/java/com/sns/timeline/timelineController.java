@@ -7,16 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.sns.post.bo.PostBO;
-import com.sns.post.model.Post;
-
-import jakarta.servlet.http.HttpSession;
+import com.sns.timeline.bo.TimeLineBO;
+import com.sns.timeline.model.CardView;
 
 @Controller
 public class timelineController {
 
 	@Autowired
-	private PostBO postBO;
+	private TimeLineBO timelineBO;
 	
 	/**
 	 * 타임라인 화면
@@ -28,8 +26,12 @@ public class timelineController {
 		
 		
 		// select
-		List<Post> postList = postBO.getPostList();
-		model.addAttribute("postList", postList);
+		//List<Post> postList = postBO.getPostList(); // 글만 있는 비오
+		//model.addAttribute("postList", postList);
+		
+		// 카드뷰로 카드 가져오기 - 댓글,글,사진 다 있는 거
+		List<CardView> cardList = timelineBO.generateCardList();
+		model.addAttribute("cardList", cardList);
 		
 		// 응답 내리기
 		model.addAttribute("viewName", "timeline/timeline");

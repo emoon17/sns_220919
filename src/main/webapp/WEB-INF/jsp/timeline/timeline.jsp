@@ -29,7 +29,7 @@
 	    	</c:if>
 	    	
 	    	<%--타임라인 영역 --%>
-	    		<c:forEach var="post" items="${postList}">
+	    		<c:forEach var="card" items="${cardList}">
 	    			<div class="d-flex justify-content-center ">
 			    		<div class="timeline-box d-flex justify-content-center">
 			    		<%--카드 1 --%>
@@ -37,17 +37,17 @@
 				    		
 				    			<%-- 글쓴이, 더보기(삭제) --%>
 								<div class="p-2 d-flex justify-content-between">
-									<span class="font-weight-bold">${post.userId}</span>
+									<span class="font-weight-bold">${card.user.loginId}</span>
 				
 									<%-- 더보기 --%>
-									<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${post.id}">
+									<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${card.post.id}">
 										<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
 									</a>
 								</div>
 				    			
 				    			<%--카드 이미지 --%>
 				    			<div class="card-img">
-				    				<img src="${post.imagePath}" class="w-100" alt="본문 이미지">
+				    				<img src="${card.post.imagePath}" class="w-100" alt="본문 이미지">
 								</div>
 								
 								<%-- 좋아요 --%>
@@ -65,19 +65,23 @@
 								
 								<%-- 댓글 목록 --%>
 								<div class="card-comment-list m-2">
-									<div class="card-comment m-1 ">
-										<span class="font-weight-bold ">댓글쓴이: </span>
-										<span > 댓글 내용입니당</span>
-										
-										<%-- 댓글 삭제 버튼 --%>
-										<a href="#" class="commentDelBtn"><img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px"></a>
-									</div>
+									
+									<%-- 댓글내용 --%>
+									<c:forEach items="${card.commentList}" var="commentView">
+										<div class="card-comment m-1 ">
+											<span class="font-weight-bold ">${commentView.user.loginId}: </span>
+											<span > ${commentView.comment.content}</span>
+											
+											<%-- 댓글 삭제 버튼 --%>
+											<a href="#" class="commentDelBtn"><img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px"></a>
+										</div>
+									</c:forEach>
 								</div>
 								<%-- 댓글 쓰기 : 로그인 된 상태만 가능--%>
 								<c:if test="${not empty userId}">
 									<div class="comment-write d-flex border-top mt-2">
 										<input type="text" class="form-control border-0 mr-2" placeholder="댓글 달기"/> 
-										<button type="button" class="comment-btn btn btn-light" data-post-id="${post.id}">게시</button>
+										<button type="button" class="comment-btn btn btn-light" data-post-id="${card.post.id}">게시</button>
 									</div>
 								</c:if>
 							</div>
@@ -220,6 +224,14 @@
    					}
    				});
    			});
+   			
+   			// 좋아요 버튼을 눌렀을 때
+   			$('.like-btn').on('click', function(e) {
+   				//alert("dd");
+   				//  좋아요 누른 글의 아이디를 가져온다.
+   				let postId = $(this).data('post-id');
+   			});
+   			
    			
    		});
    	</script>

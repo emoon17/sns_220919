@@ -20,4 +20,28 @@
  			, NOW()
  		)
  	</insert>
+ 	<select id="selectCommentListByPostId" parameterType="int" resultType="com.sns.comment.model.Comment">
+ 		SELECT 
+ 			`id`
+			,`postId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`comment`
+		WHERE
+			`postId` = #{postId}
+ 	</select>
+ 	<select id="selectCommentList" resultType="com.sns.comment.model.Comment">
+ 		SELECT 
+ 			`id`
+			,`postId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`comment`
+ 	</select>
  </mapper>
