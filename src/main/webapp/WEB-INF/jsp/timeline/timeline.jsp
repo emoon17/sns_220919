@@ -52,8 +52,8 @@
 								
 								<%-- 좋아요 --%>
 								<div class="card-like m-3">
-									<a href="#" class="like-btn">
-									<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart">
+									<a href="#" class="like-btn" data-post-id="${card.post.id}">
+									<img src="https://www.iconninja.com/files/214/518/441/heart-icon.png" width="18" height="18" alt="empty heart" >
 									좋아요 10개
 									</a>
 								</div>
@@ -230,6 +230,24 @@
    				//alert("dd");
    				//  좋아요 누른 글의 아이디를 가져온다.
    				let postId = $(this).data('post-id');
+   				alert(postId);
+   				
+   				$.ajax({
+   					type:"post"
+   					, url:"/like/" + postId
+   					, data:{"postId":postId}
+   					
+   					// response
+   					, success:function(data) {
+   						if(data.code == 1) {
+   							alert("좋아요")
+   						}
+   					}
+   					,error:function(jqXHR, textStatus, ErrorThrown){
+   						var errorMsg = jqXHR.responseJSON.status;
+   						alert(errorMsg + ":" + textStatus);
+   					}
+   				});
    			});
    			
    			

@@ -19,7 +19,13 @@ public class CommentRestController {
 
 	@Autowired
 	private CommentBO commentBO;
-	
+	/**
+	 * 댓글 쓰기 - insert
+	 * @param content
+	 * @param postId
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/create")
 	public Map<String, Object> createComment(
 			@RequestParam("content") String content,
