@@ -16,4 +16,43 @@
  			, NOW()
  		)
  	</insert>
+ 	<delete id="deleteLikeByPostIdUserId" parameterType="map">
+ 		DELETE 
+		FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+			AND `userId` = #{userId}
+ 	</delete>
+ <!-- 	<select id="existLike" parameterType="map" resultType="boolean">
+ 		SELECT 
+ 			`userId`
+			,`postId`
+			,`createdAt`
+		FROM
+			`like`
+		WHERE
+		 	`postId` = #{postId}
+		 	AND `userId` = #{userId}
+ 	</select> -->
+ 	<!-- <select id="selectLikeCountByPostId" parameterType="int" resultType="int">
+ 		SELECT 
+ 			COUNT(1)
+		FROM
+			`like`
+		WHERE
+		 	`postId` = #{postId}
+ 	<select> -->
+ 	<select id="selectLikeCountByPostIdOrUserId" parameterType="map" resultType="int">
+ 		SELECT 
+ 			COUNT(1)
+		FROM
+			`like`
+		WHERE
+		 	`postId` = #{postId}
+		 	<if test="userId != null">
+		 	AND `userId` = #{userId}
+		 	</if>
+ 	</select>
+ 	
  </mapper>

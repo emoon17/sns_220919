@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.sns.timeline.bo.TimeLineBO;
 import com.sns.timeline.model.CardView;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class timelineController {
 
@@ -22,7 +24,8 @@ public class timelineController {
 	 * @return
 	 */
 	@GetMapping("/timeline/timeline_view")
-	public String timelineView(Model model) {
+	public String timelineView(Model model,
+			HttpSession session) {
 		
 		
 		// select
@@ -30,7 +33,7 @@ public class timelineController {
 		//model.addAttribute("postList", postList);
 		
 		// 카드뷰로 카드 가져오기 - 댓글,글,사진 다 있는 거
-		List<CardView> cardList = timelineBO.generateCardList();
+		List<CardView> cardList = timelineBO.generateCardList((Integer)session.getAttribute("userId"));
 		model.addAttribute("cardList", cardList);
 		
 		// 응답 내리기
