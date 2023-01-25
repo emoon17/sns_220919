@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sns.like.bo.LikeBO;
@@ -19,7 +19,7 @@ public class LikeRestController {
 	private LikeBO likeBO;
 	
 	//togle기능이 들어가는 API
-	@GetMapping("/like/{postId}") // = like?postId=13 @RequestParam , like/13@PathVariable
+	@PostMapping("/like/{postId}") // = like?postId=13 @RequestParam , like/13@PathVariable
 	public Map<String, Object> like(
 			@PathVariable int postId,
 			HttpSession session){
