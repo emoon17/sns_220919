@@ -34,20 +34,27 @@
 			    		<div class="timeline-box d-flex justify-content-center">
 			    		<%--카드 1 --%>
 				    		<div class="card border rounded mt-3 ">
-				    		
+				    			
+				    			
 				    			<%-- 글쓴이, 더보기(삭제) --%>
 								<div class="p-2 d-flex justify-content-between">
 									<span class="font-weight-bold">${card.user.loginId}</span>
 				
-									<%-- 더보기 --%>
+									<%-- 더보기(내가 쓴 글일 때만 노출) --%>
+									<c:if test="${userId eq card.user.id}">
 									<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id="${card.post.id}">
 										<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
 									</a>
+									</c:if>
 								</div>
 				    			
 				    			<%--카드 이미지 --%>
 				    			<div class="card-img">
 				    				<img src="${card.post.imagePath}" class="w-100" alt="본문 이미지">
+								</div>
+								<%-- 글 쓰기 --%>
+								<div class="card-img">
+				    				<span class="font-weight-bold m-2">${card.user.loginId}</span><span class="m-3">"${card.post.content}"</span>
 								</div>
 								
 								<%-- 좋아요 --%>
@@ -103,6 +110,28 @@
    		</div>
    	</div>
    	
+
+<!-- Modal -->
+<div class="modal fade" id="modal"> <%--...을 눌렀을 때 post-data-id를 모달에 심어놓을거다. --%>
+ <%-- modal sm: 작은 모달 창  --%>
+ <%-- modal centered: 모달 창 수직으로 가운데 정렬 --%>
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content text-center">
+ 	   <div class="py-3 border-bottom">
+ 	   	 <a href="#" id="deletePostBtn">삭제하기</a> 
+ 	   </div>
+ 	   <%-- data-dismiss="modal"추가하면 모달 창 닫힘 --%>
+ 	   <div class="py-3 border-bottom" data-dismiss="modal">
+ 	   	<a href="#">취소하기</a>
+ 	   </div>
+ 	   <%-- 수정하기 --%>
+ 	    <div class="py-3">
+ 	   	<a href="#" id="updatePostBtn">수정하기</a>
+ 	   </div>
+    </div>
+  </div>
+</div>
+
    	<script>
    		$(document).ready(function() {
    			// 파일이미지를 클릴 할 때 => 숨겨져 있는 file input을 동작시킴
@@ -268,6 +297,50 @@
    				});
    			});
    			
+   			// 글삭제를 위한 더보기 버튼(...) 클릭
+   			$('.more-btn').on('click', function(e){
+   				e.preventDefault();
+   				
+   				let postId = $(this).data('post-id'); //getting (태그에 있는 걸 얻어오는것)
+   				//alert(postId);
+   				
+   				$('#modal').data('post-id', postId); // setting(모달 태그에 data-post-id를 심어놓는것)
+   				
+   				
+   			});
+   			// 모달 안에 있는 삭제하기 버튼 클릭
+   			$('#modal #deletePostBtn').on('click', function(e){
+   				e.preventDefault();
+   				
+   				// 모달 post id 다시 가져오기
+   				let postId = $('#modal').data('post-id');
+   				//alert(postId);
+   				
+   				//ajax 글 삭제
+   				$.ajax({
+   					// request
+   					type:"delete"
+   					, url:"/post/delete"
+   					, data:{"postId":postId}
+   					//response
+   					, success:function(data){
+   						if (data.code == 1){
+   							location.reload();
+   							alert("삭제가 완료 되었습니다.");
+   						} else {
+   							alert(data.errorMessage);
+   						}
+   					}
+   					,error:function(jqXHR, textStatus, ErrorThrown){
+   						var errorMsg = jqXHR.responseJSON.status;
+   						alert(errorMsg + ":" + textStatus);
+   					}
+   				});
+   			});
    			
+   			// 모달 수정하기 버튼을 눌렀을 때. 
+   			$('#modal #updatePostBtn').on('click', function(){
+   				alert("ㅇㅇ");
+   			});
    		});
    	</script>

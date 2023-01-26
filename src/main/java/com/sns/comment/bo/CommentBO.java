@@ -63,4 +63,7 @@ public class CommentBO {
 		return commentViewList;
 		
 	}
+	public void deleteCommentByUserIdPostId(int userId, int postId) {
+		commentDAO.deleteCommentByUserIdPostId(userId, postId);
+	}
 }

@@ -22,6 +22,10 @@ public class LikeBO {
 		}
 	}
 	
+	public void deleteLikeByPostIdUserId(int postId, int userId) {
+		likeDAO.deleteLikeByPostIdUserId(postId, userId);
+	}
+	
 	public boolean existLike(int postId, Integer userId) {
 		// 비로그인인지 확인도 해야 됌.(비로그인도 받긴 할거기 때문에 Integer)
 		
