@@ -340,7 +340,8 @@
    			
    			// 모달 수정하기 버튼을 눌렀을 때. 
    			$('#modal #updatePostBtn').on('click', function(){
-   				alert("ㅇㅇ");
+   				//alert("ㅇㅇ");
+   				let postId = $('#modal').data('post-id');
    			});
    		});
    	</script>
